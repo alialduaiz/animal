@@ -628,7 +628,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
             },
           )
       ),
-      bottomNavigationBar: LanguageSelectionBottomBar(),
+    bottomNavigationBar: LanguageSelectionBottomBar(),
     );
   }
 }

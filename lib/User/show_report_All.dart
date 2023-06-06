@@ -143,8 +143,8 @@ class _ViewReportAllState extends State<ViewReportAll> {
               ColumnItem(
                 textDirection: Directionality.of(context),
                 label: FlutterI18n.translate(context, 'ID'),
-                value:'205263417485'
-                //value: _reportdetails?['ID']?.toString() ?? FlutterI18n.translate(context, 'loading'),
+                // value:'205263417485'
+                value: _reportdetails?['ID'].hashCode.toString()?.toString() ?? FlutterI18n.translate(context, 'loading'),
               ),
               RowItem(
                 label: FlutterI18n.translate(context, 'Type')!,

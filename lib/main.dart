@@ -1,15 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled6/provider/users_provider.dart';
 
 import 'app_localizations.dart';
 import 'globals.dart';
 import 'language.dart';
-import 'Loading.dart';  // Import this file to use global variables
-void main() => runApp(MyApp());
+import 'Loading.dart';
+import 'package:provider/provider.dart';
 
-class MyApp extends StatefulWidget {
+
+void main() => runApp(
+
+
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => ReportsProvider()),
+
+    ],
+    child: MyApp(),
+  ),
+
+);
+
+class MyApp extends StatefulWidget
+{
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    state.setLocale(newLocale);
+  }
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -28,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (_navigateToLoading) {
-      _navigateToLoading = false;
+      _navigateToLoading = true;
       return loading(locale: _locale);  // Ensure that 'loading' widget is defined and correctly implemented
     }
     localee = _locale;
@@ -36,22 +57,20 @@ class _MyAppState extends State<MyApp> {
       navigatorObservers: [routeObserver],
       title: 'My App',
       locale: _locale,
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ar'),
+      ],
       localizationsDelegates: [
         AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('en', ''),
-        const Locale('ar', ''),
-      ],
-      home:
-      LanguageSelectionPage(setLocale),
+      home: LanguageSelectionPage(setLocale),
     );
   }
 }
-
 class LanguageSelectionPage extends StatelessWidget {
   final Function(Locale) setLocale;
 

@@ -169,6 +169,49 @@ print(reportData.toString());
       },
     );
   }
+  // Future<void> updateReport() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? userId = prefs.getString('userId');
+  //
+  //   if (userId != null && _imageFile != null) {
+  //     String apiUrl = "http://ec2-35-177-161-78.eu-west-2.compute.amazonaws.com:8000/update_report/";
+  //     var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
+  //     request.fields['User_ID'] = userId;
+  //     request.fields['ID'] = widget.reportId;
+  //     request.fields['Title'] = _titleController.text;
+  //     request.fields['alt'] = _markerLatLng!.latitude.toString();
+  //     request.fields['lag'] = _markerLatLng!.longitude.toString();
+  //     request.fields['Note'] = _noteController.text;
+  //     request.fields['Type'] = _typeController;
+  //     request.files
+  //         .add(await http.MultipartFile.fromPath('image', _imageFile!.path));
+  //
+  //
+  //     try {
+  //       var response = await request.send();
+  //       var responseBody = await response.stream.bytesToString();
+  //       if (response.statusCode == 201) {
+  //         Fluttertoast.showToast(
+  //           msg: "Report updated successfully.",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.green,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0,
+  //         );
+  //         Navigator.pop(context);
+  //       } else {
+  //         print('Failed to upload report. Status code: ${response.statusCode}');
+  //         print('Response body: $responseBody');
+  //         _imageFile = null; // Reset the image file if the update fails
+  //       }
+  //     } catch (e) {
+  //       print('Error uploading report: $e');
+  //       _imageFile = null; // Reset the image file if there's an error
+  //     }
+  //   }
+  // }
 
   Future<void> updateReport() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

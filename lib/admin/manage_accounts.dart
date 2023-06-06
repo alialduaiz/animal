@@ -190,7 +190,7 @@ class _UsersListState extends State<UsersList> {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("ID: ${user['ID']}"),
+                      Text("ID: ${user['ID'].hashCode.toString()}"),
                       Text("Account Type: ${user['Account_Type']}"),
                       Text("Account Status: ${user['Account_Status']}"),
                     ],
@@ -231,7 +231,7 @@ class _UsersListState extends State<UsersList> {
           ),
         ],
       ),
-      bottomNavigationBar: LanguageSelectionBottomBar(),
+  bottomNavigationBar: LanguageSelectionBottomBar(),
     );
   }
 

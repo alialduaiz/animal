@@ -1,5 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Loading.dart';
+import 'User/UserHome.dart';
+import 'main.dart';
 
 class LanguageSelectionBottomBar extends StatefulWidget {
   @override
@@ -42,6 +48,14 @@ class _LanguageSelectionBottomBarState
         },
       );
     }
+    else{
+      // Get.offAll(MyApp());
+      // Navigator.pushAndRemoveUntil(
+      //     context,
+      //     CupertinoPageRoute(
+      //         builder: (_) =>MyHome()),
+      //         (route) => false);
+    }
   }
 
   void changeLocale(String languageCode) async {
@@ -58,6 +72,7 @@ class _LanguageSelectionBottomBarState
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
+
           icon: Icon(Icons.home),
           label: '   ',
         ),
@@ -73,17 +88,17 @@ class _LanguageSelectionBottomBarState
   }
 }
 
-class MyApp extends StatefulWidget {
+class MyApp1 extends StatefulWidget {
   static void setLocale(BuildContext context, Locale newLocale) {
-    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    _MyApp1State state = context.findAncestorStateOfType<_MyApp1State>()!;
     state.setLocale(newLocale);
   }
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyApp1State createState() => _MyApp1State();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyApp1State extends State<MyApp1> {
   Locale _locale = const Locale('en');
 
   void setLocale(Locale newLocale) {

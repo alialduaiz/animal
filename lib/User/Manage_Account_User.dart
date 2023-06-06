@@ -55,7 +55,7 @@ class _ManageAccountUser extends State<ManageAccountUser> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    sleep(Duration(seconds: 5));
+    //sleep(Duration(seconds: 5));
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -129,7 +129,7 @@ class _ManageAccountUser extends State<ManageAccountUser> {
                         radius: 60.0,
                         backgroundColor: Colors.white,
                         child: Icon(
-                          Icons.mail,
+                          Icons.person,
                           size: 60,
                           color: Color(0xFF087474),
                         ),
@@ -152,6 +152,7 @@ class _ManageAccountUser extends State<ManageAccountUser> {
 
 
 
+
                      Text(
                        _userDetails != null ? _userDetails!['Name'] ??  '${FlutterI18n.translate(context,'loading' )}': '${FlutterI18n.translate(context,'loading' )}',
                         style: TextStyle(fontSize: 16.0),
@@ -163,7 +164,7 @@ class _ManageAccountUser extends State<ManageAccountUser> {
                 ),
               ),
 
-              RowItem(label: FlutterI18n.translate(context,'ID'), value: _userDetails != null ? _userDetails!['ID'] ?? '${FlutterI18n.translate(context,'loading' )}' : '${FlutterI18n.translate(context,'loading' )}'),
+              RowItem(label: FlutterI18n.translate(context,'ID'), value: _userDetails != null ? _userDetails!['ID'].hashCode.toString() ?? '${FlutterI18n.translate(context,'loading' )}' : '${FlutterI18n.translate(context,'loading' )}'),
               RowItem(label: FlutterI18n.translate(context,'phone'), value: _userDetails != null ? _userDetails!['Phone'] ?? '${FlutterI18n.translate(context,'loading' )}' : '${FlutterI18n.translate(context,'loading' )}'),
               RowItem(label: FlutterI18n.translate(context,'email'), value: _userDetails != null ? _userDetails!['Email'] ?? '${FlutterI18n.translate(context,'loading' )}' : '${FlutterI18n.translate(context,'loading' )}'),
               RowItem(label: FlutterI18n.translate(context,'national_id'), value: _userDetails != null ? _userDetails!['National_ID'] ?? '${FlutterI18n.translate(context,'loading' )}' : '${FlutterI18n.translate(context,'loading' )}'),

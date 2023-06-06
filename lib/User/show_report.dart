@@ -14,16 +14,16 @@ import '../imports_all.dart';
 import '../language.dart';
 
 
-class ViewReport extends StatefulWidget {
+class ViewReport1 extends StatefulWidget {
   final String reportid;
 
-  const ViewReport({required this.reportid});
+  const ViewReport1({required this.reportid});
 
   @override
-  State<ViewReport> createState() => _ViewReportState();
+  State<ViewReport1> createState() => _ViewReport1State();
 }
 
-class _ViewReportState extends State<ViewReport> {
+class _ViewReport1State extends State<ViewReport1> {
   Map<String, dynamic>? _reportdetails;
  late String addedDateString = _reportdetails?['Added_Date'].toString() ?? 'loading';
 
@@ -72,6 +72,8 @@ class _ViewReportState extends State<ViewReport> {
           title: Text(FlutterI18n.translate(context, 'View report')),
           centerTitle: true,
           actions: [
+
+
             IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () {
@@ -153,7 +155,7 @@ class _ViewReportState extends State<ViewReport> {
               ColumnItem(
                 textDirection: Directionality.of(context),
                 label: FlutterI18n.translate(context, 'ID')!,
-                value: _reportdetails?['ID']?.toString() ?? '${FlutterI18n.translate(context,'loading' )}',
+                value: _reportdetails?['ID'].hashCode.toString()?.toString() ?? '${FlutterI18n.translate(context,'loading' )}',
               ),
               ColumnItem(
                 textDirection: Directionality.of(context),

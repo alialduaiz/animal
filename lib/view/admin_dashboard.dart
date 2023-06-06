@@ -53,6 +53,7 @@ class _ChartAppState extends State<ChartApp> {
   void initState() {
     super.initState();
     _seriesData = <charts.Series<ItemCount, String>>[];
+    fetchReportStatusCount();
     _generateData();
   }
 

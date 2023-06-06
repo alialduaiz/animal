@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart' as intl;
+import 'package:loading_overlay_pro/animations/bouncing_line.dart';
 
 Future<void> resendReport(BuildContext context, String reportId) async {
   bool confirmCancel = await showDialog(
@@ -187,4 +188,24 @@ Future<void> cancelReport(BuildContext context, String reportId) async {
       );
     }
   }
+}
+Widget getloading3(BuildContext context){
+  return
+    Center(
+        child: Padding(
+          padding: EdgeInsets.all(5),
+          child: Container(
+            color: Colors.transparent,
+            height: 25,width: 25,
+            child:       LoadingBouncingLine.circle(
+
+                borderColor: Colors.white,
+                borderSize: 3.0,
+                size: 25,
+                backgroundColor: Colors.grey,
+                duration: Duration(milliseconds: 1000)
+            ),
+          ),
+        ));
+
 }

@@ -415,17 +415,17 @@ String _reportStatus = '';
                   ],
                 ),
               ),
-
+              ColumnItem(
+                textDirection: Directionality.of(context),
+                label: FlutterI18n.translate(context, 'ID')!,
+                value: _reportdetails?['ID']?.toString().hashCode.toString() ?? '${FlutterI18n.translate(context,'loading' )}',
+              ),
               ColumnItem(
                 textDirection: Directionality.of(context),
                 label: FlutterI18n.translate(context, 'Note')!,
                 value: '${_reportdetails!['Note']}',
               ),
-              ColumnItem(
-                textDirection: Directionality.of(context),
-                label: FlutterI18n.translate(context, 'ID')!,
-                value: _reportdetails?['ID']?.toString() ?? '${FlutterI18n.translate(context,'loading' )}',
-              ),
+
               ColumnItem(
                 textDirection: Directionality.of(context),
                 label: FlutterI18n.translate(context, 'Type')!,

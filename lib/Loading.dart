@@ -69,7 +69,7 @@ class _MySplashScreenState extends State<MySplashScreen>
     // Initialize the animation controller and animation
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 1),
     )..repeat();
 
     _animation = CurvedAnimation(
@@ -77,9 +77,9 @@ class _MySplashScreenState extends State<MySplashScreen>
       curve: Curves.easeInOut,
     );
 
-    Timer(Duration(seconds: 4), () => _controller.stop());
+    Timer(Duration(seconds: 1), () => _controller.stop());
     Timer(
-      Duration(seconds: 7),
+      Duration(seconds: 1),
           () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),

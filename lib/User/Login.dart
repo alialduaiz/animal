@@ -102,6 +102,18 @@ class _LoginPageState extends State<LoginPage> {
   ];
 
   bool _isLoading = false;
+  bool _isConnected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen for network connectivity changes
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      setState(() {
+        _isConnected = result != ConnectivityResult.none;
+      });
+    });
+  }
 
   Future<Map<String, dynamic>> loginUser(
       String phone, String password, String accountType) async {
@@ -149,8 +161,8 @@ class _LoginPageState extends State<LoginPage> {
     _userTypes[1]['title'] = FlutterI18n.translate(context, 'adminLogin');
     _userTypes[2]['title'] = FlutterI18n.translate(context, 'securityLogin');
 
-    return  ScaffoldMessenger(
-          child: Scaffold(
+    return ScaffoldMessenger(
+      child: Scaffold(
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.05,
           backgroundColor: Color(0xFF087474),
@@ -163,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           centerTitle: true,
         ),
-        body:  SafeArea(
+        body: SafeArea(
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints viewportConstraints) {
               return SingleChildScrollView(
@@ -260,7 +272,7 @@ class _LoginPageState extends State<LoginPage> {
                               // You can customize the decoration for the phone input field
                               decoration: InputDecoration(
                                 hintText:
-                                    FlutterI18n.translate(context, 'phoneNumber'),
+                                FlutterI18n.translate(context, 'phoneNumber'),
                                 prefixIcon: Icon(Icons.phone),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -275,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
                               controller: _passwordController,
                               decoration: InputDecoration(
                                 hintText:
-                                    FlutterI18n.translate(context, 'password'),
+                                FlutterI18n.translate(context, 'password'),
                                 prefixIcon: Icon(Icons.lock),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -287,95 +299,95 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             // Add a sign-in button
                             ElevatedButton(
-                              onPressed: _isLoading
+                              onPressed: _isLoading || !_isConnected
                                   ? null
                                   : () async {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
+                                setState(() {
+                                  _isLoading = true;
+                                });
 
-                                      try {
-                                        var connectivityResult =
-                                            await (Connectivity()
-                                                .checkConnectivity());
+                                try {
+                                  var connectivityResult =
+                                  await (Connectivity()
+                                      .checkConnectivity());
 
-                                        if (connectivityResult ==
-                                            ConnectivityResult.none) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(FlutterI18n.translate(
-                                                  context,
-                                                  'No Internet Connection')),
-                                            ),
-                                          );
-                                          return;
-                                        }
-
-                                        String phone = _phoneController.text;
-                                        String password =
-                                            _passwordController.text;
-                                        String accountType =
-                                            _userTypes[_selectedUserType]['type'];
-
-                                        Map<String, dynamic> result =
-                                            await loginUser(
-                                                phone, password, accountType);
-
-                                        if (result['success'] &&
-                                            (_userTypes[_selectedUserType]
-                                                    ['type']) ==
-                                                (result['Type'])) {
-                                          // Login succeeded, navigate to the appropriate screen
-                                          Navigator.push(
+                                  if (connectivityResult ==
+                                      ConnectivityResult.none) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      SnackBar(
+                                        content: Text(FlutterI18n.translate(
                                             context,
-                                            MaterialPageRoute(
-                                              builder: (context) => _userTypes[
-                                                                  _selectedUserType]
-                                                              ['type'] ==
-                                                          'User' &&
-                                                      result['Type'] == 'User'
-                                                  ? MyHome()
-                                                  : _userTypes[_selectedUserType]
-                                                                  ['type'] ==
-                                                              'Admin' &&
-                                                          result['Type'] ==
-                                                              'Admin'
-                                                      ? AdminDashboard()
-                                                      : ESHome(),
-                                            ),
-                                          );
-                                        } else {
-                                          // Login failed, display an error message
-                                          print(
-                                              'result[Type]=======${result['Type']}');
-                                          print(
-                                              '(_userTypes[_selectedUserType].toString()${(_userTypes[_selectedUserType]['type']).toString()}');
+                                            'No Internet Connection')),
+                                      ),
+                                    );
+                                    return;
+                                  }
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(FlutterI18n.translate(
-                                                  context, result['message'])),
-                                            ),
-                                          );
-                                        }
-                                      } catch (e) {
-                                        print('Error: $e');
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(FlutterI18n.translate(
-                                                context,
-                                                'Error occured while logging in')),
-                                          ),
-                                        );
-                                      }
+                                  String phone = _phoneController.text;
+                                  String password =
+                                      _passwordController.text;
+                                  String accountType =
+                                  _userTypes[_selectedUserType]['type'];
 
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    },
+                                  Map<String, dynamic> result =
+                                  await loginUser(
+                                      phone, password, accountType);
+
+                                  if (result['success'] &&
+                                      (_userTypes[_selectedUserType]
+                                      ['type']) ==
+                                          (result['Type'])) {
+                                    // Login succeeded, navigate to the appropriate screen
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => _userTypes[
+                                        _selectedUserType]
+                                        ['type'] ==
+                                            'User' &&
+                                            result['Type'] == 'User'
+                                            ? MyHome()
+                                            : _userTypes[_selectedUserType]
+                                        ['type'] ==
+                                            'Admin' &&
+                                            result['Type'] ==
+                                                'Admin'
+                                            ? AdminDashboard()
+                                            : ESHome(),
+                                      ),
+                                    );
+                                  } else {
+                                    // Login failed, display an error message
+                                    print(
+                                        'result[Type]=======${result['Type']}');
+                                    print(
+                                        '(_userTypes[_selectedUserType].toString()${(_userTypes[_selectedUserType]['type']).toString()}');
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      SnackBar(
+                                        content: Text(FlutterI18n.translate(
+                                            context, result['message'])),
+                                      ),
+                                    );
+                                  }
+                                } catch (e) {
+                                  print('Error: $e');
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    SnackBar(
+                                      content: Text(FlutterI18n.translate(
+                                          context,
+                                          'Error occured while logging in')),
+                                    ),
+                                  );
+                                }
+
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              },
                               child: Text(
                                 FlutterI18n.translate(context, 'login'),
                                 style: TextStyle(
@@ -385,7 +397,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFF604A4),
+                                backgroundColor: _isConnected
+                                    ? Color(0xFFF604A4)
+                                    : Colors.grey,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 50, vertical: 30),
                                 shape: RoundedRectangleBorder(
@@ -400,7 +414,7 @@ class _LoginPageState extends State<LoginPage> {
                             // Add a sign-up link
                             Visibility(
                               visible:
-                                  _userTypes[_selectedUserType]['type'] == 'User',
+                              _userTypes[_selectedUserType]['type'] == 'User',
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(

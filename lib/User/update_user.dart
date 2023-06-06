@@ -46,9 +46,9 @@ class _Edit_UserState extends State<Edit_User> {
     Future<bool> updateUser() async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         final String? userId = prefs.getString('userId');
-        print('_confirmPasswordController.text:${_confirmPasswordController.text} and \n _passwordController.text=${_passwordController.text}');
-        print(_confirmPasswordController.text== _passwordController.text);
-        print  (' _passwordController${_passwordController.text.isNotEmpty.toString()}');
+        // print('_confirmPasswordController.text:${_confirmPasswordController.text} and \n _passwordController.text=${_passwordController.text}');
+        // print(_confirmPasswordController.text== _passwordController.text);
+        // print  (' _passwordController${_passwordController.text.isNotEmpty.toString()}');
         try {
             final response = await http.post(
                 Uri.parse('$GServer/update_user'),
@@ -60,7 +60,7 @@ class _Edit_UserState extends State<Edit_User> {
                     "National_ID": _nationalIDController.text,
 
                     "Age": _calculateAge(_selectedDate).toString(),
-                 "Password": _passwordController,
+                 "Password": _passwordController.text,
                 },
 
 
